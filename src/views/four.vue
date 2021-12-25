@@ -6,27 +6,38 @@
             :key="i"
             :class="[{'highlight':highlight.hasOwnProperty(index)&&isIncludesNum(i,highlight[index])}]">{{k}}</span>
     </p>
+    <transition name="fade">
+      <div class="btn-group">
+        <div class="button"
+             v-if="show"
+             @click="$router.push('/five')">Enter</div>
+      </div>
+    </transition>
   </div>
 </template>
 <script>
 import { isIncludesNum } from '@/utils/utils'
+
 export default {
     data() {
         return {
+            show: false,
             words: [
                 '......',
-                'Systems initializing...',
-                'Loading reliability cores...',
-                'Connecting to wallet security...',
-                'Generating hashing protocols...',
-                'Initializing Ethaim OS 1.0...'
+                "Couldn't win, hah?",
+                "It's not your fault. The system changed its logic when it saw you were almost winning.",
+                'The blockchain is decentralized but server-side codes are still on private servers.',
+                'The present blockchain applications can change their server codes anytime they want.',
+                'If we are to truly embrace Metaverse,',
+                'We need decentralized code reliability on all servers.',
+                'Ethanim is realizing a true decentralized Metaverse.'
             ],
-            keys: ['Ethaim'], //关键字
+            keys: ['decentralized code reliability'],
             wait: 30, //打字时间
             row: 0,
             col: 0,
             typewriter: [],
-            highlight: {}, //高亮范围
+            highlight: {}, //高亮范围 {1:[[2,3],[5,8]]}
             timer: null
         }
     },
@@ -68,18 +79,19 @@ export default {
                 }
             } else {
                 clearTimeout(this.timer)
-                this.$router.push('./two')
+                this.show = true
             }
         }
-    },
-    beforeDestroy() {
-        this.timer && clearTimeout(this.timer)
     }
 }
 </script>
 <style lang="less" scoped>
 .wrapper {
     text-align: left;
+}
+.btn-group {
+    text-align: center;
+    margin-top: 200px;
 }
 @media screen and (min-width: 960px) {
     .wrapper {
@@ -90,6 +102,13 @@ export default {
         font-size: 24px;
         line-height: 24px;
         margin: 20px 0;
+    }
+    .button {
+        font-size: 16px;
+        line-height: 50px;
+        width: 160px;
+        height: 50px;
+        border-radius: 4px;
     }
 }
 </style>

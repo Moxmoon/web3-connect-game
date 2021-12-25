@@ -1,0 +1,78 @@
+@import './transition.less';
+
+@font-face {
+    font-family: Perfect;
+    src: url(./fonts/Perfect.ttf);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    background-color: #000;
+    color: #fff;
+    font-family: Perfect;
+    letter-spacing: 1px;
+}
+ul li {
+    list-style: none;
+}
+.button {
+    cursor: pointer;
+    width: 282px;
+    height: 88px;
+    line-height: 88px;
+    border-radius: 8px;
+    font-size: 28px;
+    background-color: transparent;
+    text-align: center;
+    color: #fff;
+    border: 1px solid #fff;
+    margin-bottom: 2rem;
+    display: inline-block;
+    &:hover {
+        background: rgba(255, 255, 255, 0.2);
+    }
+}
+
+h1 {
+    font-size: 80px;
+    line-height: 80px;
+    font-weight: bold;
+}
+h2 {
+    font-size: 60px;
+    line-height: 62px;
+}
+h3 {
+    font-size: 32px;
+    line-height: 36px;
+}
+p {
+    margin: 30px 0px;
+    font-size: 28px;
+    line-height: 30px;
+}
+
+.highlight {
+    color: #cb5fff;
+}
+.pointer {
+    cursor: pointer;
+}
+.wrapper {
+    margin: 5rem;
+}
+.btn-group {
+    margin-top: 120px;
+}
+@media screen and (max-width: 960px) {
+    .btn-group {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
