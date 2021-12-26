@@ -5,6 +5,8 @@
       <span v-for="(k,i) in item"
             :key="i"
             :class="[{'highlight':highlight.hasOwnProperty(index)&&isIncludesNum(i,highlight[index])}]">{{k}}</span>
+      <span class="blink"
+            v-if="index+1===typewriter.length&&show">_</span>
     </p>
   </div>
 </template>
@@ -13,13 +15,15 @@ import { isIncludesNum } from '@/utils/utils'
 export default {
     data() {
         return {
+            show: false,
             words: [
                 '......',
                 'Systems initializing...',
                 'Loading reliability cores...',
                 'Connecting to wallet security...',
                 'Generating hashing protocols...',
-                'Initializing Ethaim OS 1.0...'
+                'Initializing Ethanim OS 1.0...',
+                ''
             ],
             keys: ['Ethaim'], //关键字
             wait: 30, //打字时间
@@ -31,6 +35,14 @@ export default {
         }
     },
     mounted() {
+        const uerAgent = navigator.userAgent.toLowerCase()
+        const reg =
+            /ipad|iphone|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/g
+        if (!reg.test(uerAgent)) {
+            this.words[this.words.length - 1] = 'Press any key to start'
+        } else {
+            this.words[this.words.length - 1] = 'Click anywhere to start'
+        }
         this.typing()
     },
     methods: {
@@ -68,28 +80,47 @@ export default {
                 }
             } else {
                 clearTimeout(this.timer)
-                this.$router.push('./two')
+                setTimeout(() => {
+                    this.show = true
+                    //监听键盘事件
+                    window.addEventListener('keydown', this.jump)
+                    //监听移动端触摸事件
+                    window.addEventListener('touchend', this.jump)
+                }, this.wait)
             }
+        },
+        jump() {
+            this.$router.push('./two')
         }
     },
     beforeDestroy() {
+        window.removeEventListener('keydown', this.jump)
+        window.removeEventListener('touchend', this.jump)
         this.timer && clearTimeout(this.timer)
     }
 }
 </script>
 <style lang="less" scoped>
 .wrapper {
-    text-align: left;
+    align-items: flex-start;
+    margin-left: 50px;
 }
-@media screen and (min-width: 960px) {
-    .wrapper {
-        margin-top: 160px;
-        margin-left: 160px;
+
+.blink {
+    animation: blink 0.75s infinite steps(1, start);
+}
+@keyframes blink {
+    0% {
+        opacity: 1;
+        display: block;
     }
-    p {
-        font-size: 24px;
-        line-height: 24px;
-        margin: 20px 0;
+    50% {
+        opacity: 0;
+        display: none;
+    }
+    100% {
+        opacity: 1;
+        display: block;
     }
 }
 </style>

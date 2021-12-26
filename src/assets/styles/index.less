@@ -1,4 +1,5 @@
 @import './transition.less';
+@import './flex.less';
 
 @font-face {
     font-family: Perfect;
@@ -16,6 +17,8 @@ body {
     color: #fff;
     font-family: Perfect;
     letter-spacing: 1px;
+    height: 100vh;
+    overflow-x: hidden;
 }
 ul li {
     list-style: none;
@@ -31,7 +34,8 @@ ul li {
     text-align: center;
     color: #fff;
     border: 1px solid #fff;
-    margin-bottom: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
     display: inline-block;
     &:hover {
         background: rgba(255, 255, 255, 0.2);
@@ -52,7 +56,7 @@ h3 {
     line-height: 36px;
 }
 p {
-    margin: 30px 0px;
+    margin-bottom: 20px;
     font-size: 28px;
     line-height: 30px;
 }
@@ -64,15 +68,31 @@ p {
     cursor: pointer;
 }
 .wrapper {
-    margin: 5rem;
+    height: 100%;
+    padding: 120px 20px 40px 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
 }
-.btn-group {
-    margin-top: 120px;
-}
+
 @media screen and (max-width: 960px) {
     .btn-group {
         display: flex;
         flex-direction: column;
         align-items: center;
+    }
+}
+@media screen and (min-width: 960px) {
+    p {
+        font-size: 18px;
+        line-height: 22px;
+        margin-bottom: 18px;
+    }
+    .button {
+        font-size: 16px;
+        line-height: 50px;
+        width: 160px;
+        height: 50px;
+        border-radius: 4px;
     }
 }

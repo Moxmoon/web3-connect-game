@@ -1,11 +1,13 @@
 <template>
   <div class="wrapper">
-    <p v-for="(item,index) in typewriter"
-       :key="index">
-      <span v-for="(k,i) in item"
-            :key="i"
-            :class="[{'highlight':highlight.hasOwnProperty(index)&&isIncludesNum(i,highlight[index])}]">{{k}}</span>
-    </p>
+    <div>
+      <p v-for="(item,index) in typewriter"
+         :key="index">
+        <span v-for="(k,i) in item"
+              :key="i"
+              :class="[{'highlight':highlight.hasOwnProperty(index)&&isIncludesNum(i,highlight[index])}]">{{k}}</span>
+      </p>
+    </div>
     <transition name="fade">
       <div class="btn-group">
         <div class="button"
@@ -32,7 +34,7 @@ export default {
                 'We need decentralized code reliability on all servers.',
                 'Ethanim is realizing a true decentralized Metaverse.'
             ],
-            keys: ['decentralized code reliability'],
+            keys: ['decentralized code reliability on all servers.'],
             wait: 30, //打字时间
             row: 0,
             col: 0,
@@ -87,28 +89,15 @@ export default {
 </script>
 <style lang="less" scoped>
 .wrapper {
-    text-align: left;
+    margin-left: 50px;
+    align-items: flex-start;
+    justify-content: space-between;
+    p {
+        text-align: left;
+    }
 }
 .btn-group {
     text-align: center;
-    margin-top: 200px;
-}
-@media screen and (min-width: 960px) {
-    .wrapper {
-        margin-top: 160px;
-        margin-left: 160px;
-    }
-    p {
-        font-size: 24px;
-        line-height: 24px;
-        margin: 20px 0;
-    }
-    .button {
-        font-size: 16px;
-        line-height: 50px;
-        width: 160px;
-        height: 50px;
-        border-radius: 4px;
-    }
+    width: 100%;
 }
 </style>

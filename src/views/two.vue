@@ -2,7 +2,8 @@
   <div class="wrapper">
     <transition name="fade">
       <h1 v-if="show1"
-          style="margin-bottom:40px">ETHANIM</h1>
+          style="margin-bottom:40px"
+          class="title">ETHANIM</h1>
     </transition>
     <!-- 移动端显示 -->
     <template v-if="isMobileView">
@@ -14,33 +15,35 @@
       </transition>
       <transition name="fade">
         <h3 v-if="show2"
-            style="margin-top:30px;">-</h3>
+            style="margin-top:20px;">-</h3>
       </transition>
     </template>
     <!-- pc端 -->
     <template v-else>
       <transition name="fade">
         <h3 v-if="show2"
-            style="margin-bottom:120px">Eternalize the Application | Decentralize the Metaverse</h3>
+            style="margin-bottom:100px">Eternalize the Application | Decentralize the Metaverse</h3>
       </transition>
     </template>
     <!-- 文字说明 -->
-    <p v-for="(item,index) in typewriter"
-       :key="index">
-      <span v-for="(k,i) in item"
-            :key="i"
-            :class="[{'highlight':highlight.hasOwnProperty(index)&&isIncludesNum(i,highlight[index])}]">{{k}}</span>
-    </p>
+    <div class="flex-column text-wrapper flex1">
+      <p v-for="(item,index) in typewriter"
+         :key="index">
+        <span v-for="(k,i) in item"
+              :key="i"
+              :class="[{'highlight':highlight.hasOwnProperty(index)&&isIncludesNum(i,highlight[index])}]">{{k}}</span>
+      </p>
+    </div>
     <!-- 按钮 -->
     <transition name="fade">
       <div class="btn-group"
            v-show="show3">
         <div class="button"
-             @click="jumpEnd">Already played</div>
-        <div class="button"
              @click="popupVisible=true">Connect wallet</div>
         <div class="button"
              @click="jumpCup">Connect later</div>
+        <div class="button"
+             @click="jumpEnd">Already played</div>
       </div>
     </transition>
     <!-- 弹窗 -->
@@ -149,20 +152,26 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@media screen and (min-width: 960px) {
-    .wrapper,
-    .btn-group {
-        margin-top: 200px;
+.wrapper {
+    align-items: center;
+}
+.text-wrapper {
+    text-align: left;
+    width: 800px;
+}
+@media screen and (max-width: 960px) {
+    .text-wrapper {
+        width: 90%;
     }
+}
 
+@media screen and (min-width: 960px) {
+    .wrapper {
+        padding: 50px 20px 120px 20px;
+    }
     h3 {
         font-size: 22px;
         line-height: 22px;
-    }
-    p {
-        font-size: 16px;
-        line-height: 16px;
-        margin: 20px 0;
     }
     .button {
         font-size: 16px;

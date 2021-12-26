@@ -8,33 +8,32 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: () => import(/* webpackChunkName: "home" */ '@/views/home.vue')
+    component: () => import(/* webpackChunkName: "main" */ '@/views/home.vue')
   },
   {
     path: '/two',
     name: 'Two',
-    component: () => import(/* webpackChunkName: "about" */ '@/views/two.vue')
+    component: () => import(/* webpackChunkName: "main" */ '@/views/two.vue')
   },
   {
     path: '/three',
     name: 'Three',
-    component: () => import(/* webpackChunkName: "about" */ '@/views/three.vue')
+    component: () => import(/* webpackChunkName: "main" */ '@/views/three.vue')
   },
   {
     path: '/four',
     name: 'Four',
-    component: () => import(/* webpackChunkName: "about" */ '@/views/four.vue')
+    component: () => import(/* webpackChunkName: "main" */ '@/views/four.vue')
   },
   {
     path: '/five',
     name: 'Five',
-    component: () => import(/* webpackChunkName: "about" */ '@/views/five.vue')
+    component: () => import(/* webpackChunkName: "main" */ '@/views/five.vue')
   }
 ]
 
 const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
+  mode: 'hash',
   routes
 })
 

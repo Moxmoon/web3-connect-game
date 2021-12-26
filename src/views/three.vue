@@ -1,95 +1,99 @@
 <template>
-  <div class="wrapper">
-    <!-- 钱包账号 -->
-    <transition name="fade">
-      <p class="highlight"
-         v-if="show1&&accounts">Wallet
-        <span style="word-break:break-all;display:inline-block">{{accounts}}</span>
+  <div class="game-wrapper">
+    <div class="flex1 flex-column flex-center">
+      <!-- 钱包账号 -->
+      <transition name="fade">
+        <p class="highlight"
+           v-if="show1&&accounts">Wallet:
+          <span style="word-break:break-all;display:inline-block">{{accounts}}</span>
+        </p>
+      </transition>
+      <!-- 文字说明 -->
+      <!-- <span style="display:inline-block">{{words[0]}}</span> -->
+      <p v-for="(item,index) in typewriter"
+         :key="index"
+         class="text-wrapper">
+        <span v-for="(k,i) in item"
+              :key="i"
+              :class="[{'highlight':highlight.hasOwnProperty(index)&&isIncludesNum(i,highlight[index])}]">{{k}}</span>
       </p>
-    </transition>
-    <!-- 文字说明 -->
-    <p v-for="(item,index) in typewriter"
-       :key="index">
-      <span v-for="(k,i) in item"
-            :key="i"
-            :class="[{'highlight':highlight.hasOwnProperty(index)&&isIncludesNum(i,highlight[index])}]">{{k}}</span>
-    </p>
+    </div>
     <!-- 猜杯子游戏 -->
-    <transition name="fade">
-      <div v-show="show2"
-           class="guess-wrapper">
-        <h2 class="win-group highlight">
-          Wins: {{winTimes}}
-        </h2>
-        <div class="cup-container">
-          <div id="box1"
-               class="box"
-               @click="touchCup(1)">
-            <div class="box-container">
-              <img id="cup1"
-                   class="cup"
-                   :src="require('@/assets/images/cup.png')"
-                   alt="">
-              <img id="ball1"
-                   class="ball"
-                   v-show="cupOwner===1"
-                   :src="require('@/assets/images/ball.png')"
-                   width="30"
-                   alt="">
+    <div class="guess-wrapper">
+      <transition name="fade">
+        <div v-show="show2">
+          <h2 class="win-group highlight">
+            Wins: {{winTimes}}
+          </h2>
+          <div class="cup-container">
+            <div id="box1"
+                 class="box"
+                 @click="touchCup(1)">
+              <div class="box-container">
+                <img id="cup1"
+                     class="cup"
+                     :src="require('@/assets/images/cup.jpg')"
+                     alt="">
+                <img id="ball1"
+                     class="ball"
+                     v-show="cupOwner===1"
+                     :src="require('@/assets/images/ball.png')"
+                     width="30"
+                     alt="">
+              </div>
+            </div>
+            <div id="box2"
+                 class="box"
+                 @click="touchCup(2)">
+              <div class="box-container">
+                <img id="cup2"
+                     class="cup"
+                     :src="require('@/assets/images/cup.jpg')"
+                     alt="">
+                <img id="ball2"
+                     class="ball"
+                     v-show="cupOwner===2"
+                     :src="require('@/assets/images/ball.png')"
+                     width="30"
+                     alt="">
+              </div>
+            </div>
+            <div id="box3"
+                 class="box"
+                 @click="touchCup(3)">
+              <div class="box-container">
+                <img id="cup3"
+                     class="cup"
+                     :src="require('@/assets/images/cup.jpg')"
+                     alt="">
+                <img id="ball3"
+                     class="ball"
+                     v-show="cupOwner===3"
+                     :src="require('@/assets/images/ball.png')"
+                     alt="">
+              </div>
             </div>
           </div>
-          <div id="box2"
-               class="box"
-               @click="touchCup(2)">
-            <div class="box-container">
-              <img id="cup2"
-                   class="cup"
-                   :src="require('@/assets/images/cup.png')"
-                   alt="">
-              <img id="ball2"
-                   class="ball"
-                   v-show="cupOwner===2"
-                   :src="require('@/assets/images/ball.png')"
-                   width="30"
-                   alt="">
-            </div>
-          </div>
-          <div id="box3"
-               class="box"
-               @click="touchCup(3)">
-            <div class="box-container">
-              <img id="cup3"
-                   class="cup"
-                   :src="require('@/assets/images/cup.png')"
-                   alt="">
-              <img id="ball3"
-                   class="ball"
-                   v-show="cupOwner===3"
-                   :src="require('@/assets/images/ball.png')"
-                   alt="">
-            </div>
-          </div>
-        </div>
-        <transition name="fade">
-          <p class="tips-wrapper"
-             v-show="showTips">
-            {{tip}}
+          <p class="tips-wrapper">
+            <transition name="fade">
+              <span v-show="showTips">{{tip}}</span>
+            </transition>
           </p>
-        </transition>
-        <div class="btn-group"
-             v-if="showStart">
-          <div class="button"
-               @click="start">Start</div>
+          <div class="btn-group"
+               v-if="showStart">
+            <div class="button"
+                 @click="start">Start</div>
+          </div>
+          <div v-show="isOver"
+               class="btn-group">
+            <div class="button"
+                 @click="restart">Restart</div>
+            <div class="button"
+                 @click="giveUp">Give up</div>
+          </div>
         </div>
-        <div v-show="isOver"
-             class="btn-group">
-          <div class="button"
-               @click="restart">Restart</div>
-          <div class="button"
-               @click="giveUp">Give up</div>
-        </div>
-      </div>
-    </transition>
+      </transition>
+    </div>
   </div>
 </template>
 
@@ -108,7 +112,7 @@ export default {
             winTimes: 0, // 答对次数
             stopTouch: true, //是否禁止点击杯子
             isOver: false, //游戏结束
-            cupChangeMaxNum: 15, //杯子交换次数
+            cupChangeMaxNum: 10, //杯子交换次数
             cupChangeNum: 0, //杯子当前的交换次数
             itemxArray: [],
             showTips: false,
@@ -189,7 +193,8 @@ export default {
         },
         start() {
             this.showStart = false
-            this.showTips = false
+            this.tip = this.tips[0]
+            this.showTips = true
             this.isOver = false
             this.cupOwner = Math.floor(Math.random() * 3 + 1)
             const cup = document.getElementById('cup' + this.cupOwner)
@@ -321,8 +326,8 @@ export default {
                     if (that.cupChangeNum < that.cupChangeMaxNum) {
                         that.startMoveCup()
                     } else {
-                        that.showTips = true
-                        that.tip = that.tips[0]
+                        // that.showTips = true
+                        // that.tip = that.tips[0]
                         that.stopTouch = false
                     }
                 }
@@ -357,7 +362,7 @@ export default {
                 this.showTips = false
                 // 判断是否猜对 || 次数大于2次
                 if (index !== this.cupOwner || this.winTimes > 1) {
-                    console.log('很遗憾')
+                    // console.log('很遗憾')
                     this.isOver = true
                     setTimeout(() => {
                         this.showTips = true
@@ -387,14 +392,32 @@ export default {
 </script>
 
 <style lang="less">
-.wrapper,
+.game-wrapper {
+    height: 100%;
+    padding: 40px 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.game-wrapper,
 .box {
     text-align: center;
+}
+.text-wrapper {
+    text-align: left;
+    width: 800px;
+}
+.guess-wrapper {
+    height: 100vh;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    // justify-content: flex-end;
 }
 .cup-container {
     position: relative;
     height: 100px;
-    margin: 60px 0;
     .box {
         width: 100%;
         height: 100%;
@@ -417,46 +440,52 @@ export default {
         }
     }
 }
-.win-group {
-    margin-top: 160px;
-    margin-bottom: 120px;
-}
-
-@media screen and (min-width: 960px) {
-    .cup-container {
-        margin: 100px 0;
-        text-align: center;
-    }
-    .win-group {
-        margin-top: 240px;
-    }
-    .wrapper {
-        margin-top: 270px;
-    }
+@media screen and (max-width: 960px) {
     .guess-wrapper {
-        margin: 0 18%;
+        max-width: 800px;
+        min-width: 100%;
+        .cup-container {
+            margin: 60px 0;
+        }
     }
-    .tips-wrapper {
-        margin: 10px 5%;
+    .text-wrapper {
+        width: 96%;
     }
+}
+@media screen and (min-width: 960px) {
+    .game-wrapper {
+        .cup-container {
+            margin: 50px 0;
+            text-align: center;
+        }
+        .guess-wrapper {
+            margin: 0 18%;
+            min-width: 800px;
+        }
+        .tips-wrapper {
+            height: 60px;
+            line-height: 60px;
+            margin: 10px 5%;
+        }
 
-    h3 {
-        font-size: 22px;
-        line-height: 22px;
-    }
-    p {
-        font-size: 16px;
-        line-height: 16px;
-        margin: 20px 0;
-    }
-    .button {
-        font-size: 16px;
-        line-height: 50px;
-        width: 160px;
-        height: 50px;
-        border-radius: 4px;
-        margin-left: 30px;
-        margin-right: 30px;
+        h3 {
+            font-size: 22px;
+            line-height: 22px;
+        }
+        p {
+            font-size: 16px;
+            line-height: 16px;
+            margin: 20px 0;
+        }
+        .button {
+            font-size: 16px;
+            line-height: 50px;
+            width: 160px;
+            height: 50px;
+            border-radius: 4px;
+            margin-left: 30px;
+            margin-right: 30px;
+        }
     }
 }
 #box1 {
@@ -491,12 +520,12 @@ export default {
         top: 0;
     }
     100% {
-        top: -100px;
+        top: -60px;
     }
 }
 @keyframes down {
     0% {
-        top: -100px;
+        top: -60px;
     }
     100% {
         top: 0;
@@ -505,7 +534,7 @@ export default {
 /* 下面是盒子运动的总共6个路线 */
 .a {
     animation-name: ax;
-    animation-duration: 0.3s;
+    animation-duration: 0.45s;
     animation-timing-function: cubic-bezier(0, 0, 0, 0);
     animation-fill-mode: forwards;
 }
@@ -525,7 +554,7 @@ export default {
 
 .b {
     animation-name: bx;
-    animation-duration: 0.3s;
+    animation-duration: 0.45s;
     animation-timing-function: cubic-bezier(0, 0, 0, 0);
     animation-fill-mode: forwards;
 }
@@ -545,7 +574,7 @@ export default {
 
 .c {
     animation-name: cx;
-    animation-duration: 0.3s;
+    animation-duration: 0.45s;
     animation-timing-function: cubic-bezier(0, 0, 0, 0);
     animation-fill-mode: forwards;
 }
@@ -565,7 +594,7 @@ export default {
 
 .d {
     animation-name: dx;
-    animation-duration: 0.3s;
+    animation-duration: 0.45s;
     animation-timing-function: cubic-bezier(0, 0, 0, 0);
     animation-fill-mode: forwards;
 }
@@ -585,7 +614,7 @@ export default {
 
 .e {
     animation-name: ex;
-    animation-duration: 0.3s;
+    animation-duration: 0.45s;
     animation-timing-function: cubic-bezier(0, 0, 0, 0);
     animation-fill-mode: forwards;
 }
@@ -605,7 +634,7 @@ export default {
 
 .f {
     animation-name: fx;
-    animation-duration: 0.3s;
+    animation-duration: 0.45s;
     animation-timing-function: cubic-bezier(0, 0, 0, 0);
     animation-fill-mode: forwards;
 }

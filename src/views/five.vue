@@ -106,16 +106,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.wrapper {
-    margin: 0 40px;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
 .logo {
     width: 100%;
     height: 120px;
-    margin-top: 200px;
     margin-bottom: 80px;
     flex-shrink: 0;
     background: url('../assets/images/logo@2x.png') no-repeat center;
@@ -125,35 +118,6 @@ export default {
     margin: 0 auto;
     display: flex;
     justify-content: center;
-    // .input-wrapper {
-    //     display: flex;
-    //     flex-wrap: nowrap;
-    //     margin-right: 60px;
-    //     flex: 1;
-    //     input {
-    //         height: 88px;
-    //         line-height: 88px;
-    //         font-size: 18px;
-    //         background-color: #000;
-    //         border: 1px solid #fff;
-    //         border-top-left-radius: 8px;
-    //         border-bottom-left-radius: 8px;
-    //         border-right: none;
-    //         color: #fff;
-    //         flex: 1;
-    //         white-space: nowrap;
-    //         padding: 0 20px;
-    //         text-align: left;
-    //         &::placeholder {
-    //             font-family: Perfect;
-    //         }
-    //     }
-    //     .button {
-    //         border-top-left-radius: 0px;
-    //         border-bottom-left-radius: 0px;
-    //         border-left: none;
-    //     }
-    // }
 }
 .concat-link {
     text-align: center;
@@ -218,7 +182,6 @@ export default {
     .logo {
         width: 100%;
         height: 120px;
-        margin-top: 200px;
         margin-bottom: 80px;
         background: url('../assets/images/logo.png') no-repeat center;
     }

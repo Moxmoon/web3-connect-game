@@ -6,9 +6,8 @@
           name="mc-embedded-subscribe-form"
           class="validate"
           target="_blank"
-          novalidate>
-      <!-- @submit.prevent="submitForm" -->
-
+          novalidate
+          @submit.prevent="submitForm">
       <div id="mc_embed_signup_scroll">
         <div class="mc-field-group">
           <input type="email"
@@ -51,34 +50,37 @@
   </div>
 </template>
 <script>
-// import axios from 'axios'
-
+import axios from 'axios'
+import { isEmail } from '@/utils/utils'
 export default {
     methods: {
-        // submitForm() {
-        //     axios.defaults.baseURL = '/mailchimp'
-        //     const input = document.getElementById('mce-EMAIL')
-        //     if (!input.value) return
-        //     axios({
-        //         headers: {
-        //             'Content-Type': 'application/x-www-form-urlencoded'
-        //         },
-        //         url: '/post?u=f8f45ab3bc061229666d00320&amp;id=d572bbdb76',
-        //         method: 'post',
-        //         data: `EMAIL=${input.value} `
-        //     })
-        //         .then(res => {
-        //             if (res.status === 200) {
-        //                 console.log('2312', input)
-        //                 input.value = ''
-        //                 input.setAttribute(
-        //                     'placeholder',
-        //                     'subscribed successfully!'
-        //                 )
-        //             }
-        //         })
-        //         .catch(err => {})
-        // }
+        submitForm() {
+            const input = document.getElementById('mce-EMAIL')
+            if (!input.value) return
+            if (!isEmail(input.value)) {
+                input.value = ''
+                input.setAttribute('placeholder', 'wrong email format!')
+                return
+            }
+            axios({
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                url: '/mailchimp/post?u=f8f45ab3bc061229666d00320&amp;id=d572bbdb76',
+                method: 'post',
+                data: `EMAIL=${input.value} `
+            })
+                .then(res => {
+                    if (res.status === 200) {
+                        input.value = ''
+                        input.setAttribute(
+                            'placeholder',
+                            'subscribed successfully!'
+                        )
+                    }
+                })
+                .catch(err => {})
+        }
     }
 }
 </script>
@@ -105,6 +107,7 @@ export default {
             text-align: left;
             font-family: Perfect;
             margin-right: -5px;
+            margin-top: 1rem;
             input:-internal-autofill-selected {
                 -webkit-text-fill-color: #000 !important;
                 transition: background-color 5000s ease-in-out 0s !important;

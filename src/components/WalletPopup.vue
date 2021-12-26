@@ -34,6 +34,7 @@
 import Web3 from 'web3'
 import WalletConnectProvider from '@walletconnect/web3-provider'
 import Web3Modal from 'web3modal'
+import { subStr } from '@/utils/utils'
 export default {
     props: ['visible'],
     data() {
@@ -47,7 +48,7 @@ export default {
         },
         // metaMask
         async handleMetaMask() {
-            if (!window.ethereum) {
+            if (typeof window.ethereum === 'undefined') {
                 //如果没有安装MetaMask插件，则跳转提示安装chrome的MetaMask插件
                 let opener = window.open('https://metamask.io/')
                 opener = null
@@ -64,7 +65,7 @@ export default {
                 const accounts = await web3.eth.getAccounts()
                 // console.log(accounts, 'accounts')
                 if (accounts && accounts.length > 0) {
-                    sessionStorage.setItem('accounts', accounts[0])
+                    sessionStorage.setItem('accounts', subStr(accounts[0]))
                 }
                 this.$router.push('/three')
             }
@@ -81,7 +82,7 @@ export default {
             const accounts = await web3.eth.getAccounts()
 
             if (accounts && accounts.length > 0) {
-                sessionStorage.setItem('accounts', accounts[0])
+                sessionStorage.setItem('accounts', subStr(accounts[0]))
             }
             this.$router.push('/three')
         }

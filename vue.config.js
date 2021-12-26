@@ -17,7 +17,7 @@ module.exports = {
                 target: "https://network.us20.list-manage.com/subscribe",
                 changeOrigin: true,
                 pathRewrite: {
-                    "^/mailchimp": "/"
+                    "^/mailchimp": ""
                 }
             }
         }
@@ -27,7 +27,7 @@ module.exports = {
         config.resolve.symlinks(true)
         config.resolve.extensions[('vue', 'json', 'js')]
         config.plugin('html').tap(args => {
-            args[0].title = ''
+            args[0].title = 'Ethanim'
             return args
         })
     },
