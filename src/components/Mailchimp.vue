@@ -95,9 +95,9 @@ export default {
     flex: 1;
     .mc-field-group {
         input {
-            height: 2.63rem;
-            font-size: 0.88rem;
-            line-height: 2.63rem;
+            height: 4.88rem;
+            font-size: 2rem;
+            line-height: 4.88rem;
             border: 0.06rem solid #ffffff;
             background-color: #000;
             border-top-left-radius: 0.25rem;
@@ -112,8 +112,8 @@ export default {
             text-align: left;
             font-family: Perfect;
             margin-right: -5px;
-            margin-top: 1rem;
-            width: 16.8rem;
+            margin-top: 1.4rem;
+            width: 24.8rem;
             input:-internal-autofill-selected {
                 -webkit-text-fill-color: #000 !important;
                 transition: background-color 5000s ease-in-out 0s !important;
@@ -139,8 +139,8 @@ p {
     #mc_embed_signup_scroll {
         .mc-field-group {
             input {
-                height: 3.23rem;
-                line-height: 3.23rem;
+                height: 4.88rem;
+                line-height: 4.88rem;
             }
         }
     }

@@ -42,7 +42,6 @@
                      class="ball"
                      v-show="cupOwner===1"
                      :src="require('@/assets/images/ball.png')"
-                     width="30"
                      alt="">
               </div>
             </div>
@@ -431,7 +430,7 @@ export default {
     }
     .top-wrapper {
         width: 100%;
-        margin-bottom: 6rem;
+        margin-bottom: 8rem;
         .text-wrapper {
             text-align: left;
         }
@@ -470,6 +469,7 @@ export default {
             transform: translate(-50%, -50%);
             left: 50%;
             top: 50%;
+            width: 30px;
         }
     }
 }
@@ -478,10 +478,10 @@ export default {
         max-width: 800px;
         min-width: 100%;
         .cup-container {
-            margin: 4rem 0;
+            margin: 8rem 0;
         }
         .tips-wrapper {
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
         }
         .btn-group {
             height: 10rem;
@@ -494,7 +494,7 @@ export default {
 @media screen and (min-width: 750px) {
     .game-wrapper {
         .text-wrapper {
-            width: 48rem;
+            width: 88%;
         }
         .cup-container {
             margin: 5rem 0;

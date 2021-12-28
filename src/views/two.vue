@@ -164,7 +164,7 @@ export default {
 }
 .text-wrapper {
     text-align: left;
-    width: 800px;
+    width: 75rem;
 }
 h1 {
     margin-bottom: 2.06rem;
@@ -183,9 +183,6 @@ h4 {
         .buttons {
             display: flex;
             flex-direction: column;
-            .button {
-                width: 14rem;
-            }
         }
     }
 }

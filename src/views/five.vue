@@ -115,7 +115,6 @@ export default {
     background: url('../assets/images/logo@2x.png') no-repeat center;
 }
 .btn-group {
-    max-width: 50rem;
     margin: 0 auto;
     display: flex;
     justify-content: center;

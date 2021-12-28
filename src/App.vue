@@ -13,7 +13,10 @@
     height: 100%;
 }
 #walletconnect-qrcode-modal .walletconnect-modal__base {
-    height: calc(100% - 72px);
-    top: calc(50% + 32px);
+    max-height: calc(100% - 100px);
+    top: calc(50% + 22px);
+}
+#walletconnect-qrcode-modal .walletconnect-qrcode__image {
+    max-width: calc(100% - 162px);
 }
 </style>
