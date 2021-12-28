@@ -52,11 +52,10 @@
 <script>
 import axios from 'axios'
 import { isEmail } from '@/utils/utils'
+
 export default {
     methods: {
         submitForm() {
-            axios.defaults.baseURL = '/mailchimp'
-            axios.defaults.withCredentials = true
             const input = document.getElementById('mce-EMAIL')
             if (!input.value) return
             if (!isEmail(input.value)) {
@@ -64,6 +63,9 @@ export default {
                 input.setAttribute('placeholder', 'wrong email format!')
                 return
             }
+            axios.defaults.baseURL = '/mailchimp'
+            axios.defaults.withCredentials = true
+
             axios({
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
