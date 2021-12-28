@@ -11,6 +11,7 @@
       <span class="blink"
             v-if="index+1===typewriter.length&&show">_</span>
     </p>
+
   </div>
 </template>
 <script>
