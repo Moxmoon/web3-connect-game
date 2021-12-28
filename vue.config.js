@@ -6,7 +6,7 @@ const postcss = px2rem({
 })
 
 module.exports = {
-    publicPath: '/',
+    publicPath: './',
     lintOnSave: false,
     productionSourceMap: true,
     chainWebpack: config => {
