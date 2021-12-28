@@ -13,7 +13,8 @@ export function subStr(str) {
     return str1 + '...' + str2
 }
 export function randomNum(min, max) {
-    const tmp = JSON.parse(sessionStorage.getItem('randomNum')) || 0
+    const n = sessionStorage.getItem('randomNum') || 0
+    const tmp = JSON.parse(n)
     let num = function () {
         const r = Math.floor(Math.random() * (max - min + 1) + min);
         if (tmp === r) {

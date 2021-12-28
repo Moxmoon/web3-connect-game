@@ -55,6 +55,7 @@ import { isEmail } from '@/utils/utils'
 export default {
     methods: {
         submitForm() {
+            axios.defaults.baseURL = '/mailchimp'
             const input = document.getElementById('mce-EMAIL')
             if (!input.value) return
             if (!isEmail(input.value)) {
@@ -66,7 +67,7 @@ export default {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                url: '/mailchimp/post?u=f8f45ab3bc061229666d00320&amp;id=d572bbdb76',
+                url: '/post?u=f8f45ab3bc061229666d00320&amp;id=d572bbdb76',
                 method: 'post',
                 data: `EMAIL=${input.value} `
             })
