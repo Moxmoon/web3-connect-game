@@ -6,20 +6,9 @@ const postcss = px2rem({
 })
 
 module.exports = {
-    publicPath: './',
+    publicPath: '/',
     lintOnSave: false,
     productionSourceMap: true,
-    devServer: {
-        proxy: {
-            "/mailchimp": {
-                target: "https://network.us20.list-manage.com/subscribe",
-                changeOrigin: true,
-                pathRewrite: {
-                    "^/mailchimp": "/"
-                }
-            }
-        }
-    },
     chainWebpack: config => {
         config.resolve.alias.set('vue$', 'vue/dist/vue.esm.js').set('@', resolve('src'))
         config.resolve.symlinks(true)

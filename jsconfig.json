@@ -8,6 +8,6 @@
         "module": "commonjs",
         "allowSyntheticDefaultImports": true
     },
-    "include": ["src/**/*"],
+    "include": ["src/**/*", "public/test.js"],
     "exclude": ["node_modules", "dist"]
 }

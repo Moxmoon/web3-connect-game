@@ -41,7 +41,7 @@ export default {
                 'We need decentralized code reliability on all servers.'
             ],
             keys: ['decentralized code reliability'],
-            wait: 15,
+            wait: 25,
             row: 0,
             col: 0,
             typewriter: [],

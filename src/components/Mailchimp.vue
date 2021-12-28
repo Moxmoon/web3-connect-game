@@ -1,11 +1,12 @@
 <template>
   <div class="subscribe">
     <div id="mc_embed_signup">
-      <form action="https://network.us20.list-manage.com/subscribe/post?u=f8f45ab3bc061229666d00320&amp;id=d572bbdb76"
-            method="post"
+      <form action="https://network.us20.list-manage.com/subscribe/post-json?u=f8f45ab3bc061229666d00320&amp;id=d572bbdb76&amp;c=?"
+            method="get"
             id="mc-embedded-subscribe-form"
             name="mc-embedded-subscribe-form"
             class="validate"
+            style="display:none"
             novalidate>
         <div id="mc_embed_signup_scroll">
           <h2>Subscribe</h2>
@@ -56,54 +57,47 @@
     </div>
     <div class="input-wrapper">
       <input type="text"
+             name="EMAIL"
              id="email"
              placeholder="Receive email updates">
       <div class="button"
-           @click="subscribe">Subscribe</div>
+           @click.prevent="subscribe">Subscribe</div>
     </div>
   </div>
 </template>
 <script>
-// import axios from 'axios'
-// import { isEmail } from '@/utils/utils'
-
 export default {
     methods: {
         subscribe() {
-            const form = document.getElementById('mc-embedded-subscribe-form')
-            form.action =
-                form.action + '&EMAIL=' + document.getElementById('email').value
-            form.submit()
+            const $form = $('#mc-embedded-subscribe-form')
+            const value = $('#email').val()
+            $('#mce-EMAIL').val(value)
+            $.ajax({
+                type: $form.attr('method'),
+                url: $form.attr('action'),
+                data: $form.serialize(),
+                cache: false,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                error: function (err) {
+                    alert('err')
+                },
+                success: function (data) {
+                    $('#email').val('')
+                    console.log(data.msg)
+                    if (data.result != 'success') {
+                        $('#email').attr('placeholder', 'Subscribed failed')
+                        // 表单提交失败...
+                    } else {
+                        $('#email').attr(
+                            'placeholder',
+                            'Subscribed successfully!'
+                        )
+                        // 表单提交成功...
+                    }
+                }
+            })
         }
-        // submitForm() {
-        //     const input = document.getElementById('mce-EMAIL')
-        //     if (!input.value) return
-        //     if (!isEmail(input.value)) {
-        //         input.value = ''
-        //         input.setAttribute('placeholder', 'wrong email format!')
-        //         return
-        //     }
-        //     axios.defaults.baseURL = '/mailchimp'
-        //     axios.defaults.withCredentials = true
-        //     axios({
-        //         headers: {
-        //             'Content-Type': 'application/x-www-form-urlencoded'
-        //         },
-        //         url: '/post?u=f8f45ab3bc061229666d00320&amp;id=d572bbdb76',
-        //         method: 'post',
-        //         data: `EMAIL=${input.value} `
-        //     })
-        //         .then(res => {
-        //             if (res.status === 200) {
-        //                 input.value = ''
-        //                 input.setAttribute(
-        //                     'placeholder',
-        //                     'subscribed successfully!'
-        //                 )
-        //             }
-        //         })
-        //         .catch(err => {})
-        // }
     }
 }
 </script>
@@ -114,7 +108,7 @@ export default {
         flex-wrap: nowrap;
         input {
             height: 4.88rem;
-            font-size: 2rem;
+            font-size: 1.2rem;
             line-height: 4.88rem;
             border: 0.06rem solid #ffffff;
             background-color: #000;
@@ -144,46 +138,46 @@ export default {
 }
 
 //mc_mailchimp
-#mc_embed_signup_scroll {
-    // visibility: hidden;
-    display: none;
-    flex-wrap: nowrap;
-    flex: 1;
-    .mc-field-group {
-        input {
-            height: 4.88rem;
-            font-size: 2rem;
-            line-height: 4.88rem;
-            border: 0.06rem solid #ffffff;
-            background-color: #000;
-            border-top-left-radius: 0.25rem;
-            border-bottom-left-radius: 0.25rem;
-            border-top-right-radius: 0px;
-            border-bottom-right-radius: 0px;
-            border-right: none;
-            color: #fff;
-            flex: 1;
-            white-space: nowrap;
-            padding: 0 20px;
-            text-align: left;
-            font-family: Perfect;
-            margin-right: -5px;
-            margin-top: 1.4rem;
-            width: 24.8rem;
-            input:-internal-autofill-selected {
-                -webkit-text-fill-color: #000 !important;
-                transition: background-color 5000s ease-in-out 0s !important;
-            }
-        }
-    }
-    .button {
-        border-top-left-radius: 0px;
-        border-bottom-left-radius: 0px;
-        border-left: none;
-        font-family: Perfect;
-        height: auto;
-    }
-}
+// #mc_embed_signup_scroll {
+//     // visibility: hidden;
+//     // display: none;
+//     flex-wrap: nowrap;
+//     flex: 1;
+//     .mc-field-group {
+//         input {
+//             height: 4.88rem;
+//             font-size: 2rem;
+//             line-height: 4.88rem;
+//             border: 0.06rem solid #ffffff;
+//             background-color: #000;
+//             border-top-left-radius: 0.25rem;
+//             border-bottom-left-radius: 0.25rem;
+//             border-top-right-radius: 0px;
+//             border-bottom-right-radius: 0px;
+//             border-right: none;
+//             color: #fff;
+//             flex: 1;
+//             white-space: nowrap;
+//             padding: 0 20px;
+//             text-align: left;
+//             font-family: Perfect;
+//             margin-right: -5px;
+//             margin-top: 1.4rem;
+//             width: 24.8rem;
+//             input:-internal-autofill-selected {
+//                 -webkit-text-fill-color: #000 !important;
+//                 transition: background-color 5000s ease-in-out 0s !important;
+//             }
+//         }
+//     }
+//     .button {
+//         border-top-left-radius: 0px;
+//         border-bottom-left-radius: 0px;
+//         border-left: none;
+//         font-family: Perfect;
+//         height: auto;
+//     }
+// }
 p {
     margin-block-start: 0;
     margin-block-end: 0;

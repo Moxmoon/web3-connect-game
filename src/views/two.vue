@@ -24,7 +24,7 @@
       </transition>
     </template>
     <!-- text -->
-    <div class="flex-column text-wrapper flex1">
+    <div class="flex-column text-wrapper ">
       <p v-for="(item,index) in typewriter"
          :key="index">
         <template v-for="(k,i) in item">
@@ -36,9 +36,9 @@
       </p>
     </div>
     <!-- button -->
-    <div class="btn-group">
-      <template v-if="show3">
-        <transition name="fade">
+    <div class="btn-group flex1 flex flex-center">
+      <transition name="fade">
+        <template v-if="show3">
           <div class="buttons">
             <div class="button"
                  :key="1"
@@ -50,8 +50,8 @@
                  :key="3"
                  @click="jumpEnd">Already played</div>
           </div>
-        </transition>
-      </template>
+        </template>
+      </transition>
     </div>
     <wallet-popup :visible="popupVisible"
                   @close="popupVisible=false"></wallet-popup>
@@ -78,7 +78,7 @@ export default {
             ],
             keys: ['win 3 consecutive times', '1 ETH'],
             fadeWait: 800,
-            wait: 15, //打字时间
+            wait: 25, //打字时间
             row: 0,
             col: 0,
             typewriter: [],

@@ -54,16 +54,13 @@ export default {
                 let opener = window.open('https://metamask.io/')
                 opener = null
             } else {
-                console.log('start')
                 const providerOptions = {}
                 const web3Modal = new Web3Modal({
                     network: 'mainnet', // optional
                     cacheProvider: true, // optional
                     providerOptions // required
                 })
-                console.log('web3Modal')
                 const provider = await web3Modal.connect()
-                console.log(provider, 'provider')
                 //  Create Web3
                 const web3 = new Web3(provider)
                 const accounts = await web3.eth.getAccounts()
@@ -115,22 +112,22 @@ export default {
     }
     .popup-container {
         z-index: 99;
-        width: 400px;
-        height: 250px;
+        width: 30rem;
+        height: 20rem;
         background: #222222;
         border-radius: 4px;
         border: 1px solid #ffffff;
         display: flex;
         flex-direction: column;
         .popup-header {
-            height: 30px;
+            height: 2.4rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
             margin: 6px 12px 0 12px;
             span {
-                font-size: 18px;
-                line-height: 18px;
+                font-size: 1.28rem;
+                line-height: 1.28rem;
             }
         }
         .popup-main {
@@ -146,9 +143,9 @@ export default {
             align-items: center;
             .wallet-item {
                 cursor: pointer;
-                width: 56%;
-                height: 40px;
-                line-height: 40px;
+                width: 60%;
+                height: 3rem;
+                line-height: 3rem;
                 border-radius: 4px;
                 padding: 0 12px;
                 border: 1px solid #ffffff;
@@ -156,7 +153,7 @@ export default {
                 justify-content: space-between;
                 align-items: center;
                 &:first-child {
-                    margin-bottom: 18px;
+                    margin-bottom: 2rem;
                 }
             }
         }

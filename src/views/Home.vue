@@ -30,7 +30,7 @@ export default {
                 ''
             ],
             keys: ['Ethanim'],
-            wait: 15,
+            wait: 25,
             row: 0,
             col: 0,
             typewriter: [],
