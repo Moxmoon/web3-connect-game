@@ -141,7 +141,7 @@ export default {
             ],
             keys: ['Ethaim'], //关键字
             fadeWait: 800,
-            wait: 30, //打字时间
+            wait: 15, //打字时间
             row: 0,
             col: 0,
             typewriter: [],

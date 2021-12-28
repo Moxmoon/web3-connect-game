@@ -16,7 +16,8 @@
       <transition name="fade">
         <template v-if="show">
           <div class="button"
-               @click="$router.push('/five')">Enter</div>
+               id="enter"
+               @click="jump">Enter</div>
         </template>
       </transition>
     </div>
@@ -40,7 +41,7 @@ export default {
                 'We need decentralized code reliability on all servers.'
             ],
             keys: ['decentralized code reliability'],
-            wait: 30,
+            wait: 15,
             row: 0,
             col: 0,
             typewriter: [],
@@ -88,6 +89,9 @@ export default {
                 clearTimeout(this.timer)
                 this.show = true
             }
+        },
+        jump() {
+            this.$router.push('/five')
         }
     }
 }

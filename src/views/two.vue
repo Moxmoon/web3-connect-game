@@ -78,7 +78,7 @@ export default {
             ],
             keys: ['win 3 consecutive times', '1 ETH'],
             fadeWait: 800,
-            wait: 30, //打字时间
+            wait: 15, //打字时间
             row: 0,
             col: 0,
             typewriter: [],
@@ -164,7 +164,8 @@ export default {
 }
 .text-wrapper {
     text-align: left;
-    width: 75rem;
+    width: 100%;
+    max-width: 104rem;
 }
 h1 {
     margin-bottom: 2.06rem;

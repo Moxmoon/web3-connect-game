@@ -163,7 +163,7 @@ export default {
     .btn-group {
         width: 100%;
         .button {
-            width: 80%;
+            width: 78%;
         }
     }
 }
