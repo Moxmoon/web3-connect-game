@@ -2,9 +2,12 @@
   <div class="wrapper">
     <p v-for="(item,index) in typewriter"
        :key="index">
-      <span v-for="(k,i) in item"
-            :key="i"
-            :class="[{'highlight':highlight.hasOwnProperty(index)&&isIncludesNum(i,highlight[index])}]">{{k}}</span>
+      <template v-for="(k,i) in item">
+        <template v-if="!(highlight.hasOwnProperty(index)&&isIncludesNum(i,highlight[index]))">{{k}}</template>
+        <span :key="i"
+              v-else
+              :class="['notranslate',{'highlight':highlight.hasOwnProperty(index)&&isIncludesNum(i,highlight[index])}]">{{k}}</span>
+      </template>
       <span class="blink"
             v-if="index+1===typewriter.length&&show">_</span>
     </p>
@@ -25,12 +28,12 @@ export default {
                 'Initializing Ethanim OS 1.0...',
                 ''
             ],
-            keys: ['Ethaim'], //关键字
-            wait: 30, //打字时间
+            keys: ['Ethanim'],
+            wait: 30,
             row: 0,
             col: 0,
             typewriter: [],
-            highlight: {}, //高亮范围
+            highlight: {},
             timer: null
         }
     },
@@ -103,7 +106,7 @@ export default {
 <style lang="less" scoped>
 .wrapper {
     align-items: flex-start;
-    margin-left: 50px;
+    padding: 3.13rem 3.75rem;
 }
 
 .blink {

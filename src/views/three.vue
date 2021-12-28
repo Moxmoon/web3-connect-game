@@ -1,30 +1,34 @@
 <template>
   <div class="game-wrapper">
-    <div class="flex1 flex-column flex-center">
-      <!-- 钱包账号 -->
+    <div class="flex-column flex-center top-wrapper">
+      <!-- accounts -->
       <transition name="fade">
         <p class="highlight"
            v-if="show1&&accounts">Wallet:
           <span style="word-break:break-all;display:inline-block">{{accounts}}</span>
         </p>
       </transition>
-      <!-- 文字说明 -->
+      <!-- text -->
       <!-- <span style="display:inline-block">{{words[0]}}</span> -->
       <p v-for="(item,index) in typewriter"
          :key="index"
          class="text-wrapper">
-        <span v-for="(k,i) in item"
-              :key="i"
-              :class="[{'highlight':highlight.hasOwnProperty(index)&&isIncludesNum(i,highlight[index])}]">{{k}}</span>
+        <template v-for="(k,i) in item">
+          <template v-if="!(highlight.hasOwnProperty(index)&&isIncludesNum(i,highlight[index]))">{{k}}</template>
+          <span :key="i"
+                v-else
+                :class="['notranslate',{'highlight':highlight.hasOwnProperty(index)&&isIncludesNum(i,highlight[index])}]">{{k}}</span>
+        </template>
       </p>
     </div>
-    <!-- 猜杯子游戏 -->
+    <!-- guess game -->
     <div class="guess-wrapper">
       <transition name="fade">
         <div v-show="show2">
-          <h2 class="win-group highlight">
-            Wins: {{winTimes}}
-          </h2>
+          <h3 class="win-group highlight">
+            <template v-if="!isOver">Wins: {{winTimes}}</template>
+            <template v-else>Game Over</template>
+          </h3>
           <div class="cup-container">
             <div id="box1"
                  class="box"
@@ -79,17 +83,17 @@
               <span v-show="showTips">{{tip}}</span>
             </transition>
           </p>
-          <div class="btn-group"
-               v-if="showStart">
-            <div class="button"
-                 @click="start">Start</div>
-          </div>
-          <div v-show="isOver"
-               class="btn-group">
-            <div class="button"
-                 @click="restart">Restart</div>
-            <div class="button"
-                 @click="giveUp">Give up</div>
+          <div class="btn-group">
+            <template v-if="showStart">
+              <div class="button"
+                   @click="start">Start</div>
+            </template>
+            <template v-if="isOver">
+              <div class="button"
+                   @click="restart">Restart</div>
+              <div :class="['button',{'blink':isBlink}]"
+                   @click="giveUp">Give up</div>
+            </template>
           </div>
         </div>
       </transition>
@@ -98,7 +102,7 @@
 </template>
 
 <script>
-import { isIncludesNum } from '@/utils/utils'
+import { isIncludesNum, randomNum } from '@/utils/utils'
 
 export default {
     data() {
@@ -116,8 +120,22 @@ export default {
             cupChangeNum: 0, //杯子当前的交换次数
             itemxArray: [],
             showTips: false,
-            tips: ['Choose the box with coin inside', 'Game Over'], //文案
+            isBlink: false, //闪烁
+            tips: 'Choose the box with coin inside',
             tip: '',
+            failTips: [
+                "Can't keep up?",
+                "It's already so slow",
+                'Come on, focus!',
+                'I am getting tired.',
+                'Try again?'
+            ],
+            winTips: [
+                "Wow！You're good.",
+                'I am impressed!',
+                "You're fast!",
+                'Good job!'
+            ],
             timerCount: [], //定时器
             words: [
                 'Now guess where is the ball right now. Continuously win 3 times, you win 1 ETH.'
@@ -192,22 +210,20 @@ export default {
             }, 1000)
         },
         start() {
-            this.showStart = false
-            this.tip = this.tips[0]
-            this.showTips = true
-            this.isOver = false
-            this.cupOwner = Math.floor(Math.random() * 3 + 1)
-            const cup = document.getElementById('cup' + this.cupOwner)
-            const ball = document.getElementById('ball' + this.cupOwner)
-            ball.style.display = 'block'
             // 重置状态
+            this.showStart = false
+            this.cupChangeNum = 0
+            this.showTips = false
             const cups = document.getElementsByClassName('cup')
             Array.from(cups).forEach(c => {
                 c.removeAttribute('style')
             })
 
-            this.cupChangeNum = 0
-            this.stopTouch = false
+            this.isOver = false
+            this.cupOwner = Math.floor(Math.random() * 3 + 1)
+            const cup = document.getElementById('cup' + this.cupOwner)
+            const ball = document.getElementById('ball' + this.cupOwner)
+            ball.style.display = 'block'
 
             this.pickUpCup(cup)
             this.timerCount[2] = setTimeout(() => {
@@ -229,18 +245,15 @@ export default {
         },
         // 开始移动杯子
         startMoveCup() {
-            this.stopTouch = true
             document.getElementById('ball' + this.cupOwner).style.display =
                 'none'
-            //随机从数组中取两个item
+
             let randomArr = this.getArrRandomly(this.itemxArray, 2)
             let randomItem1 = randomArr[0]
             let randomItem2 = randomArr[1]
             let randomItem1Index = this.itemxArray.indexOf(randomItem1)
             let randomItem2Index = this.itemxArray.indexOf(randomItem2)
 
-            // 交换两个位置的元素，
-            // console.log('准备交换的数组：', this.itemxArray);
             ;[
                 this.itemxArray[randomItem1Index],
                 this.itemxArray[randomItem2Index]
@@ -248,7 +261,6 @@ export default {
                 this.itemxArray[randomItem2Index],
                 this.itemxArray[randomItem1Index]
             ]
-            // console.log('交换后的额数组：', this.itemxArray)
 
             let item1AnmationName = ''
             let item2AnmationName = ''
@@ -326,15 +338,14 @@ export default {
                     if (that.cupChangeNum < that.cupChangeMaxNum) {
                         that.startMoveCup()
                     } else {
-                        // that.showTips = true
-                        // that.tip = that.tips[0]
+                        that.showTips = true
+                        that.tip = that.tips
                         that.stopTouch = false
                     }
                 }
             }
         },
 
-        //随机获取数组中的两个不同元素。先打乱数组顺序，再取前两位。
         getArrRandomly(arr, num) {
             let carr = arr.concat()
             var len = carr.length
@@ -352,7 +363,6 @@ export default {
             }
             return arrList
         },
-        //盒子点击触发事件
         touchCup(index) {
             if (!this.stopTouch) {
                 const cup = document.getElementById('cup' + index)
@@ -360,23 +370,35 @@ export default {
                 this.currentUpCup = cup
                 this.pickUpCup(cup)
                 this.showTips = false
-                // 判断是否猜对 || 次数大于2次
+                this.isBlink = this.winTimes > 1
+                console.log(this.isBlink, this.winTimes, 'winTimes')
+
                 if (index !== this.cupOwner || this.winTimes > 1) {
-                    // console.log('很遗憾')
                     this.isOver = true
                     setTimeout(() => {
                         this.showTips = true
-                        this.tip = this.tips[1]
+                        this.tip =
+                            this.failTips[
+                                randomNum(0, this.failTips.length - 1)
+                            ]
                     }, 800)
                 } else {
                     ball.style.display = 'block'
                     this.winTimes += 1
+                    setTimeout(() => {
+                        this.showTips = true
+                        this.tip =
+                            this.winTips[randomNum(0, this.winTips.length - 1)]
+                    }, 800)
+                    setTimeout(() => {
+                        this.showTips = false
+                    }, 3000)
                     this.timerCount[6] = setTimeout(() => {
                         this.backUpCup(cup)
-                    }, 1000)
+                    }, 2000)
                     this.timerCount[7] = setTimeout(() => {
                         this.start()
-                    }, 2000)
+                    }, 4000)
                 }
                 this.stopTouch = true
             } else return
@@ -394,26 +416,37 @@ export default {
 <style lang="less">
 .game-wrapper {
     height: 100%;
-    padding: 40px 20px;
+    padding: 6.13rem 3.13rem;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
+    .win-group {
+        height: 1.94rem;
+        margin-bottom: 2.94rem;
+    }
+    .tips-wrapper {
+        height: 2.25rem;
+        line-height: 2.25rem;
+    }
+    .top-wrapper {
+        width: 100%;
+        margin-bottom: 6rem;
+        .text-wrapper {
+            text-align: left;
+        }
+    }
 }
 .game-wrapper,
 .box {
     text-align: center;
-}
-.text-wrapper {
-    text-align: left;
-    width: 800px;
 }
 .guess-wrapper {
     height: 100vh;
     flex: 1;
     display: flex;
     flex-direction: column;
-    // justify-content: flex-end;
+    padding-top: 1.88rem;
 }
 .cup-container {
     position: relative;
@@ -440,42 +473,39 @@ export default {
         }
     }
 }
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 749px) {
     .guess-wrapper {
         max-width: 800px;
         min-width: 100%;
         .cup-container {
-            margin: 60px 0;
+            margin: 4rem 0;
+        }
+        .tips-wrapper {
+            margin-bottom: 2rem;
+        }
+        .btn-group {
+            height: 10rem;
         }
     }
     .text-wrapper {
         width: 96%;
     }
 }
-@media screen and (min-width: 960px) {
+@media screen and (min-width: 750px) {
     .game-wrapper {
+        .text-wrapper {
+            width: 48rem;
+        }
         .cup-container {
-            margin: 50px 0;
+            margin: 5rem 0;
             text-align: center;
+        }
+        .tips-wrapper {
+            margin-bottom: 2rem;
         }
         .guess-wrapper {
             margin: 0 18%;
             min-width: 800px;
-        }
-        .tips-wrapper {
-            height: 60px;
-            line-height: 60px;
-            margin: 10px 5%;
-        }
-
-        h3 {
-            font-size: 22px;
-            line-height: 22px;
-        }
-        p {
-            font-size: 16px;
-            line-height: 16px;
-            margin: 20px 0;
         }
         .button {
             font-size: 16px;
@@ -486,6 +516,24 @@ export default {
             margin-left: 30px;
             margin-right: 30px;
         }
+    }
+}
+
+.blink {
+    animation-name: blink; /*动画名称*/
+    animation-duration: 1.25s; /*动画持续时间*/
+    animation-iteration-count: infinite; /*动画次数*/
+    animation-delay: 0s;
+}
+@keyframes blink {
+    0% {
+        opacity: 0; /*初始状态 透明度为0*/
+    }
+    50% {
+        opacity: 1; /*中间状态 透明度为0*/
+    }
+    100% {
+        opacity: 0; /*结尾状态 透明度为1*/
     }
 }
 #box1 {

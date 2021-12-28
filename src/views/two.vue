@@ -2,51 +2,57 @@
   <div class="wrapper">
     <transition name="fade">
       <h1 v-if="show1"
-          style="margin-bottom:40px"
           class="title">ETHANIM</h1>
     </transition>
-    <!-- 移动端显示 -->
+    <!-- mobile -->
     <template v-if="isMobileView">
       <transition name="fade">
-        <h3 v-if="show2">Eternalize the Application</h3>
+        <h4 v-if="show2">Eternalize the Application</h4>
       </transition>
       <transition name="fade">
-        <h3 v-if="show2">Decentralize the Metaverse</h3>
+        <h4 v-if="show2">Decentralize the Metaverse</h4>
       </transition>
       <transition name="fade">
-        <h3 v-if="show2"
-            style="margin-top:20px;">-</h3>
+        <h4 v-if="show2"
+            style="margin-top:3rem;margin-bottom:3rem">-</h4>
       </transition>
     </template>
-    <!-- pc端 -->
+    <!-- pc -->
     <template v-else>
       <transition name="fade">
-        <h3 v-if="show2"
-            style="margin-bottom:100px">Eternalize the Application | Decentralize the Metaverse</h3>
+        <h4 v-if="show2">Eternalize the Application | Decentralize the Metaverse</h4>
       </transition>
     </template>
-    <!-- 文字说明 -->
+    <!-- text -->
     <div class="flex-column text-wrapper flex1">
       <p v-for="(item,index) in typewriter"
          :key="index">
-        <span v-for="(k,i) in item"
-              :key="i"
-              :class="[{'highlight':highlight.hasOwnProperty(index)&&isIncludesNum(i,highlight[index])}]">{{k}}</span>
+        <template v-for="(k,i) in item">
+          <template v-if="!(highlight.hasOwnProperty(index)&&isIncludesNum(i,highlight[index]))">{{k}}</template>
+          <span :key="i"
+                v-else
+                :class="['notranslate',{'highlight':highlight.hasOwnProperty(index)&&isIncludesNum(i,highlight[index])}]">{{k}}</span>
+        </template>
       </p>
     </div>
-    <!-- 按钮 -->
-    <transition name="fade">
-      <div class="btn-group"
-           v-show="show3">
-        <div class="button"
-             @click="popupVisible=true">Connect wallet</div>
-        <div class="button"
-             @click="jumpCup">Connect later</div>
-        <div class="button"
-             @click="jumpEnd">Already played</div>
-      </div>
-    </transition>
-    <!-- 弹窗 -->
+    <!-- button -->
+    <div class="btn-group">
+      <template v-if="show3">
+        <transition name="fade">
+          <div class="buttons">
+            <div class="button"
+                 :key="1"
+                 @click="popupVisible=true">Connect wallet</div>
+            <div class="button"
+                 :key="2"
+                 @click="jumpCup">Connect later</div>
+            <div class="button"
+                 :key="3"
+                 @click="jumpEnd">Already played</div>
+          </div>
+        </transition>
+      </template>
+    </div>
     <wallet-popup :visible="popupVisible"
                   @close="popupVisible=false"></wallet-popup>
   </div>
@@ -135,7 +141,7 @@ export default {
         },
         isMobile() {
             const width = document.documentElement.clientWidth
-            if (width > 960) {
+            if (width > 749) {
                 this.isMobileView = false
             } else {
                 this.isMobileView = true
@@ -154,33 +160,33 @@ export default {
 <style lang="less" scoped>
 .wrapper {
     align-items: center;
+    padding: 7.38rem 3.13rem;
 }
 .text-wrapper {
     text-align: left;
     width: 800px;
 }
-@media screen and (max-width: 960px) {
-    .text-wrapper {
-        width: 90%;
-    }
+h1 {
+    margin-bottom: 2.06rem;
 }
-
-@media screen and (min-width: 960px) {
-    .wrapper {
-        padding: 50px 20px 120px 20px;
+h4 {
+    margin-bottom: 7.56rem;
+}
+@media screen and(max-width:749px) {
+    h4 {
+        margin-bottom: 0.63rem;
     }
-    h3 {
-        font-size: 22px;
-        line-height: 22px;
+    .text-wrapper {
+        width: 94%;
     }
-    .button {
-        font-size: 16px;
-        line-height: 50px;
-        width: 180px;
-        height: 50px;
-        border-radius: 4px;
-        margin-left: 30px;
-        margin-right: 30px;
+    .btn-group {
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            .button {
+                width: 14rem;
+            }
+        }
     }
 }
 </style>

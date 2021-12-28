@@ -88,17 +88,18 @@ export default {
 #mc_embed_signup_scroll {
     display: flex;
     flex-wrap: nowrap;
-    margin-right: 60px;
     flex: 1;
     .mc-field-group {
         input {
-            height: 88px;
-            line-height: 88px;
-            font-size: 18px;
+            height: 2.63rem;
+            font-size: 0.88rem;
+            line-height: 2.63rem;
+            border: 0.06rem solid #ffffff;
             background-color: #000;
-            border: 1px solid #fff;
-            border-top-left-radius: 8px;
-            border-bottom-left-radius: 8px;
+            border-top-left-radius: 0.25rem;
+            border-bottom-left-radius: 0.25rem;
+            border-top-right-radius: 0px;
+            border-bottom-right-radius: 0px;
             border-right: none;
             color: #fff;
             flex: 1;
@@ -108,6 +109,7 @@ export default {
             font-family: Perfect;
             margin-right: -5px;
             margin-top: 1rem;
+            width: 16.8rem;
             input:-internal-autofill-selected {
                 -webkit-text-fill-color: #000 !important;
                 transition: background-color 5000s ease-in-out 0s !important;
@@ -120,41 +122,26 @@ export default {
         border-left: none;
         font-family: Perfect;
         height: auto;
-        padding: 0 10px 0 15px;
     }
 }
 p {
     margin-block-start: 0;
     margin-block-end: 0;
 }
-@media screen and (min-width: 750px) {
-    .button {
-        font-size: 16px;
-        line-height: 50px;
-        width: 180px;
-        height: 50px;
-        border-radius: 4px;
+@media screen and (max-width: 749px) {
+    #mc_embed_signup {
+        width: 80%;
     }
     #mc_embed_signup_scroll {
         .mc-field-group {
             input {
-                width: 300px;
-                height: 50px;
-            }
-        }
-    }
-}
-@media screen and (max-width: 750px) {
-    #mc_embed_signup_scroll {
-        margin-right: 0px;
-        .mc-field-group {
-            input {
-                font-size: 26px;
+                height: 3.23rem;
+                line-height: 3.23rem;
             }
         }
     }
     #mc-embedded-subscribe {
-        width: 200px;
+        width: 13.4rem;
     }
 }
 </style>

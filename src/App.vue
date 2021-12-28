@@ -12,4 +12,8 @@
     text-align: center;
     height: 100%;
 }
+#walletconnect-qrcode-modal .walletconnect-modal__base {
+    height: calc(100% - 72px);
+    top: calc(50% + 32px);
+}
 </style>

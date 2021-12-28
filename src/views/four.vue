@@ -3,18 +3,23 @@
     <div>
       <p v-for="(item,index) in typewriter"
          :key="index">
-        <span v-for="(k,i) in item"
-              :key="i"
-              :class="[{'highlight':highlight.hasOwnProperty(index)&&isIncludesNum(i,highlight[index])}]">{{k}}</span>
+        <template v-for="(k,i) in item">
+          <template v-if="!(highlight.hasOwnProperty(index)&&isIncludesNum(i,highlight[index]))">{{k}}</template>
+          <span :key="i"
+                v-else
+                :class="['notranslate',{'highlight':highlight.hasOwnProperty(index)&&isIncludesNum(i,highlight[index])}]">{{k}}</span>
+        </template>
+        <br v-if="index===1||index===5"></br>
       </p>
     </div>
-    <transition name="fade">
-      <div class="btn-group">
-        <div class="button"
-             v-if="show"
-             @click="$router.push('/five')">Enter</div>
-      </div>
-    </transition>
+    <div class="btn-group flex1 flex flex-center">
+      <transition name="fade">
+        <template v-if="show">
+          <div class="button"
+               @click="$router.push('/five')">Enter</div>
+        </template>
+      </transition>
+    </div>
   </div>
 </template>
 <script>
@@ -27,19 +32,19 @@ export default {
             words: [
                 '......',
                 "Couldn't win, hah?",
-                "It's not your fault. The system changed its logic when it saw you were almost winning.",
-                'The blockchain is decentralized but server-side codes are still on private servers.',
-                'The present blockchain applications can change their server codes anytime they want.',
-                'If we are to truly embrace Metaverse,',
-                'We need decentralized code reliability on all servers.',
-                'Ethanim is realizing a true decentralized Metaverse.'
+                "It's not your fault - this is the present condition.",
+                'The system cheated, foreseeing your win.',
+                'Server-side codes are still on private servers.',
+                'Those codes can be tampered with anytime.',
+                'If we are to embrace Metaverse truly,',
+                'We need decentralized code reliability on all servers.'
             ],
-            keys: ['decentralized code reliability on all servers.'],
-            wait: 30, //打字时间
+            keys: ['decentralized code reliability'],
+            wait: 30,
             row: 0,
             col: 0,
             typewriter: [],
-            highlight: {}, //高亮范围 {1:[[2,3],[5,8]]}
+            highlight: {}, // {1:[[2,3],[5,8]]}
             timer: null
         }
     },
@@ -89,15 +94,19 @@ export default {
 </script>
 <style lang="less" scoped>
 .wrapper {
-    margin-left: 50px;
     align-items: flex-start;
-    justify-content: space-between;
+    padding: 3.13rem 3.75rem;
     p {
         text-align: left;
     }
+    .btn-group {
+        text-align: center;
+        width: 100%;
+    }
 }
-.btn-group {
-    text-align: center;
-    width: 100%;
+@media screen and (max-width: 749px) {
+    .btn-group {
+        width: 100%;
+    }
 }
 </style>

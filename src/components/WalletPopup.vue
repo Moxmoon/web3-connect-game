@@ -48,18 +48,22 @@ export default {
         },
         // metaMask
         async handleMetaMask() {
+            console.log(window.ethereum, 'ethereum')
             if (typeof window.ethereum === 'undefined') {
                 //如果没有安装MetaMask插件，则跳转提示安装chrome的MetaMask插件
                 let opener = window.open('https://metamask.io/')
                 opener = null
             } else {
+                console.log('start')
                 const providerOptions = {}
                 const web3Modal = new Web3Modal({
                     network: 'mainnet', // optional
                     cacheProvider: true, // optional
                     providerOptions // required
                 })
+                console.log('web3Modal')
                 const provider = await web3Modal.connect()
+                console.log(provider, 'provider')
                 //  Create Web3
                 const web3 = new Web3(provider)
                 const accounts = await web3.eth.getAccounts()
