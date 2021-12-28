@@ -56,6 +56,7 @@ export default {
     methods: {
         submitForm() {
             axios.defaults.baseURL = '/mailchimp'
+            axios.defaults.withCredentials = true
             const input = document.getElementById('mce-EMAIL')
             if (!input.value) return
             if (!isEmail(input.value)) {

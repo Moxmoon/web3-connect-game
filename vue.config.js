@@ -15,7 +15,7 @@ module.exports = {
                 target: "https://network.us20.list-manage.com/subscribe",
                 changeOrigin: true,
                 pathRewrite: {
-                    "^/mailchimp": "/mailchimp"
+                    "^/mailchimp": "/"
                 }
             }
         }
