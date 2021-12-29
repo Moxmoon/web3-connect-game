@@ -25,10 +25,10 @@
     <div class="guess-wrapper">
       <transition name="fade">
         <div v-show="show2">
-          <h3 class="win-group highlight">
+          <h1 class="win-group highlight">
             <template v-if="!isOver">Wins: {{winTimes}}</template>
             <template v-else>Game Over</template>
-          </h3>
+          </h1>
           <div class="cup-container">
             <div id="box1"
                  class="box"
@@ -113,6 +113,7 @@ export default {
             currentUpCup: null, //当前抬起的杯子
             cupOwner: null, // 藏有小球的杯子
             winTimes: 0, // 答对次数
+            overTimes: 0,
             stopTouch: true, //是否禁止点击杯子
             isOver: false, //游戏结束
             cupChangeMaxNum: 10, //杯子交换次数
@@ -369,18 +370,17 @@ export default {
                 this.currentUpCup = cup
                 this.pickUpCup(cup)
                 this.showTips = false
-                this.isBlink = this.winTimes > 1
-                console.log(this.isBlink, this.winTimes, 'winTimes')
 
                 if (index !== this.cupOwner || this.winTimes > 1) {
                     this.isOver = true
+                    this.overTimes += 1
                     setTimeout(() => {
                         this.showTips = true
                         this.tip =
                             this.failTips[
                                 randomNum(0, this.failTips.length - 1)
                             ]
-                    }, 800)
+                    }, 500)
                 } else {
                     ball.style.display = 'block'
                     this.winTimes += 1
@@ -388,7 +388,7 @@ export default {
                         this.showTips = true
                         this.tip =
                             this.winTips[randomNum(0, this.winTips.length - 1)]
-                    }, 800)
+                    }, 500)
                     setTimeout(() => {
                         this.showTips = false
                     }, 3000)
@@ -400,6 +400,8 @@ export default {
                     }, 4000)
                 }
                 this.stopTouch = true
+                this.isBlink = this.overTimes >= 3
+                console.log(this.isBlink, this.overTimes, 'overTimes')
             } else return
         },
         giveUp() {
@@ -478,7 +480,7 @@ export default {
         max-width: 800px;
         min-width: 100%;
         .cup-container {
-            margin: 8rem 0;
+            margin: 10rem 0 4rem 0;
         }
         .tips-wrapper {
             margin-bottom: 3rem;
@@ -497,7 +499,7 @@ export default {
             width: 88%;
         }
         .cup-container {
-            margin: 5rem 0;
+            margin: 10rem 0 4rem 0;
             text-align: center;
         }
         .tips-wrapper {

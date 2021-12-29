@@ -149,7 +149,7 @@ export default {
 .footer {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: center;
     flex: 1;
 }
 @media screen and (max-width: 749px) {

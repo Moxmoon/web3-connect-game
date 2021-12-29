@@ -126,6 +126,9 @@ export default {
             margin-right: -5px;
             margin-top: 1.4rem;
             width: 24.8rem;
+            &:focus-visible {
+                outline: none;
+            }
         }
         .button {
             border-top-left-radius: 0px;
@@ -137,47 +140,6 @@ export default {
     }
 }
 
-//mc_mailchimp
-// #mc_embed_signup_scroll {
-//     // visibility: hidden;
-//     // display: none;
-//     flex-wrap: nowrap;
-//     flex: 1;
-//     .mc-field-group {
-//         input {
-//             height: 4.88rem;
-//             font-size: 2rem;
-//             line-height: 4.88rem;
-//             border: 0.06rem solid #ffffff;
-//             background-color: #000;
-//             border-top-left-radius: 0.25rem;
-//             border-bottom-left-radius: 0.25rem;
-//             border-top-right-radius: 0px;
-//             border-bottom-right-radius: 0px;
-//             border-right: none;
-//             color: #fff;
-//             flex: 1;
-//             white-space: nowrap;
-//             padding: 0 20px;
-//             text-align: left;
-//             font-family: Perfect;
-//             margin-right: -5px;
-//             margin-top: 1.4rem;
-//             width: 24.8rem;
-//             input:-internal-autofill-selected {
-//                 -webkit-text-fill-color: #000 !important;
-//                 transition: background-color 5000s ease-in-out 0s !important;
-//             }
-//         }
-//     }
-//     .button {
-//         border-top-left-radius: 0px;
-//         border-bottom-left-radius: 0px;
-//         border-left: none;
-//         font-family: Perfect;
-//         height: auto;
-//     }
-// }
 p {
     margin-block-start: 0;
     margin-block-end: 0;
@@ -197,21 +159,6 @@ p {
             }
         }
     }
-    // #mc_embed_signup {
-    //     width: 78%;
-    // }
-    // #mc_embed_signup_scroll {
-    //     .mc-field-group {
-    //         input {
-    //             height: 4.88rem;
-    //             line-height: 4.88rem;
-    //             width: 15.6rem;
-    //         }
-    //     }
-    // }
-    // #mc-embedded-subscribe {
-    //     width: 14rem;
-    // }
 }
 </style>
 

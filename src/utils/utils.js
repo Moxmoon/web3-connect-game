@@ -15,12 +15,15 @@ export function subStr(str) {
 export function randomNum(min, max) {
     let n = sessionStorage.getItem('randomNum')
     let tmp = n === 'undefined' ? 0 : JSON.parse(n)
-    let num = function () {
+    function num() {
         const r = Math.floor(Math.random() * (max - min + 1) + min);
         if (tmp === r) {
-            num()
-        } else return r
+            return num()
+        } else {
+            return r
+        }
     }
+
     const random = num()
     sessionStorage.setItem('randomNum', random)
     return random
