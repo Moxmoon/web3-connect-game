@@ -509,15 +509,6 @@ export default {
             margin: 0 18%;
             min-width: 800px;
         }
-        .button {
-            font-size: 16px;
-            line-height: 50px;
-            width: 160px;
-            height: 50px;
-            border-radius: 4px;
-            margin-left: 30px;
-            margin-right: 30px;
-        }
     }
 }
 

@@ -112,22 +112,22 @@ export default {
     }
     .popup-container {
         z-index: 99;
-        width: 30rem;
-        height: 20rem;
+        width: 520px;
+        height: 360px;
         background: #222222;
         border-radius: 4px;
         border: 1px solid #ffffff;
         display: flex;
         flex-direction: column;
         .popup-header {
-            height: 2.4rem;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             margin: 6px 12px 0 12px;
             span {
-                font-size: 1.28rem;
-                line-height: 1.28rem;
+                font-size: 22px;
+                line-height: 22px;
             }
         }
         .popup-main {
@@ -143,17 +143,18 @@ export default {
             align-items: center;
             .wallet-item {
                 cursor: pointer;
-                width: 60%;
-                height: 3rem;
-                line-height: 3rem;
+                width: 56%;
+                height: 54px;
+                line-height: 54px;
                 border-radius: 4px;
-                padding: 0 12px;
+                padding: 0 18px;
                 border: 1px solid #ffffff;
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+                font-size: 22px;
                 &:first-child {
-                    margin-bottom: 2rem;
+                    margin-bottom: 30px;
                 }
             }
         }

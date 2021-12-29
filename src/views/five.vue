@@ -9,7 +9,7 @@
       <!-- Welcome to Ethanim -->
       <transition name="fade">
         <h2 v-show="show2"
-            style="margin-bottom: 18px;">Welcome to Ethanim</h2>
+            style="margin-bottom: 18px;white-space:nowrap">Welcome to Ethanim</h2>
       </transition>
       <!-- Copyright -->
       <transition name="fade">
@@ -157,7 +157,7 @@ export default {
         padding-top: 9.5rem;
     }
     .logo {
-        margin-bottom: 1.69rem;
+        margin-bottom: 3.69rem;
         background: url('../assets/images/logo.png') no-repeat center;
     }
     .btn-group {

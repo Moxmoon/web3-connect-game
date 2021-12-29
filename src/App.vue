@@ -17,6 +17,6 @@
     top: calc(50% + 22px);
 }
 #walletconnect-qrcode-modal .walletconnect-qrcode__image {
-    max-width: calc(100% - 200px);
+    max-width: calc(100% - 400px);
 }
 </style>
