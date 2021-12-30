@@ -432,7 +432,7 @@ export default {
     }
     .top-wrapper {
         width: 100%;
-        margin-bottom: 8rem;
+        margin-bottom: 4rem;
         .text-wrapper {
             text-align: left;
         }
